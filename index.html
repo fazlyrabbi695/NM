@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Data Viewer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <button class="menu-button" id="menuButton" aria-label="Toggle menu" aria-expanded="false">
+            <i class="fas fa-bars-staggered"></i>
+        </button>
+        <div class="fixed-nav">
+            <div class="fixed-nav-left">
+                <button class="menu-button scroll-menu" id="scrollMenuButton" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars-staggered"></i>
+                </button>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="scrollSearchInput" placeholder="Search in data...">
+                </div>
+            </div>
+            <div class="fixed-nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="fixed-page-info">
+                    <span id="fixedPageInfo"></span>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <button class="theme-toggle floating-theme-toggle" id="floatingThemeToggle" aria-label="Toggle dark mode">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-table-list"></i>
+                <h1>Northern Meter</h1>
+            </div>
+            <div class="upload-section">
+                <label for="fileInput" class="upload-button">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Upload Excel Files</span>
+                </label>
+                <input type="file" id="fileInput" accept=".xlsx,.xls" multiple>
+            </div>
+            <div id="fileList" class="file-list">
+                <!-- Files will be listed here -->
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search in data...">
+                </div>
+                <div id="status" class="status-message"></div>
+            </header>
+
+            <div class="data-container">
+                <div class="table-header">
+                    <div class="record-info">
+                        <i class="fas fa-database"></i>
+                        <span id="recordCount">No records to display</span>
+                    </div>
+                    <div class="pagination">
+                        <button id="prevPage" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="pageInfo">Page 0 of 0</span>
+                        <button id="nextPage" disabled>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="dataTable">
+                        <tr><td>No data available</td></tr>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>
+                <span class="copyright">&copy; 2025</span>
+                <a href="http://www.linkedin.com/in/fazly-rabbi-8411061a0" target="_blank" rel="noopener noreferrer">
+                    Fazly Rabbi
+                </a>
+                <span class="heart">
+                    <i class="fas fa-heart"></i>
+                </span>
+            </p>
+        </footer>
+
+        <!-- Password Modal -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="fas fa-lock"></i>
+                    <h2>Enter Password</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <i class="fas fa-key"></i>
+                        <input type="password" id="passwordInput" placeholder="Enter password">
+                    </div>
+                    <p id="passwordError" class="error-message"></p>
+                </div>
+                <div class="modal-buttons">
+                    <button id="submitPassword">
+                        <i class="fas fa-check"></i>
+                        Submit
+                    </button>
+                    <button id="cancelPassword">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="excel_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
